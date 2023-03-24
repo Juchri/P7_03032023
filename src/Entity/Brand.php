@@ -20,9 +20,10 @@ class Brand
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["getMobiles"])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'brand_id', targetEntity: mobile::class)]
+    #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Mobile::class)]
     private Collection $mobiles;
 
     public function __construct()
@@ -43,7 +44,6 @@ class Brand
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 

@@ -4,6 +4,19 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'brand' => [[], ['_controller' => 'App\\Controller\\BrandController::getBrandList'], [], [['text', '/api/brands']], [], [], []],
+    'detailBrand' => [['id'], ['_controller' => 'App\\Controller\\BrandController::getDetailBrand'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/brands']], [], [], []],
+    'deleteBrand' => [['id'], ['_controller' => 'App\\Controller\\BrandController::deleteBrand'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/brands']], [], [], []],
+    'createBrand' => [[], ['_controller' => 'App\\Controller\\BrandController::createBrand'], [], [['text', '/api/brands']], [], [], []],
+    'updateBrand' => [['id'], ['_controller' => 'App\\Controller\\BrandController::updateBrand'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/brands']], [], [], []],
+    'client' => [[], ['_controller' => 'App\\Controller\\ClientController::getClientList'], [], [['text', '/api/clients']], [], [], []],
+    'detailClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::getDetailClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
+    'deleteClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::deleteClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
+    'createClient' => [[], ['_controller' => 'App\\Controller\\ClientController::createClient'], [], [['text', '/api/clients']], [], [], []],
+    'updateClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::updateClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
     'mobile' => [[], ['_controller' => 'App\\Controller\\MobileController::getMobileList'], [], [['text', '/api/mobiles']], [], [], []],
     'detailMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::getDetailMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
+    'deleteMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::deleteMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
+    'createMobile' => [[], ['_controller' => 'App\\Controller\\MobileController::createMobile'], [], [['text', '/api/mobiles']], [], [], []],
+    'updateMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::updateMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
 ];

@@ -88,3 +88,31 @@ Requête CURL :
 
 `$ curl 127.0.0.1\ -H "Accept: application/json"\ -X POST\ -u myuser:pass\ --data
  '{"message":"hello"}'`
+
+
+Vendredi 17 mars : 
+- https://dbdiagram.io/d/64146104296d97641d88c59c : diagramme de classes pour déffricher un peu
+
+---- 
+
+Poster une brand : 
+
+http://127.0.0.1:8000/api/brands : POST
+{
+    "name": "Apple",
+    "idBrand": "1"
+}
+
+Poster un mobile :
+
+http://127.0.0.1:8000/api/mobiles : POST
+{
+    "model": "Iphone",
+    "idBrand": "1"
+}
+
+
+Vendredi 24 mars :
+HASHER Le mot de passe et continuer le cours
+Récupérer le mot de passe, le hasher, puis utiliser une méthode pour comparer (pas de if, pas de ==, juste la méthode qui compare les mots de passe)
+Envoi mot de passe / Distribution de token (JWT) / Compare avec l'existent / Valide
