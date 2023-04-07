@@ -116,3 +116,6 @@ Vendredi 24 mars :
 HASHER Le mot de passe et continuer le cours
 Récupérer le mot de passe, le hasher, puis utiliser une méthode pour comparer (pas de if, pas de ==, juste la méthode qui compare les mots de passe)
 Envoi mot de passe / Distribution de token (JWT) / Compare avec l'existent / Valide
+
+
+
