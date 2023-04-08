@@ -17,12 +17,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MobileController extends AbstractController
 {
     #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un livre')]
     public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer): JsonResponse
     {
         $mobileList = $mobileRepository->findAll();

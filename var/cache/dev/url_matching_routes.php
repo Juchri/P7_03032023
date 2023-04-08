@@ -20,6 +20,7 @@ return [
             [['_route' => 'mobile', '_controller' => 'App\\Controller\\MobileController::getMobileList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createMobile', '_controller' => 'App\\Controller\\MobileController::createMobile'], null, ['POST' => 0], null, false, false, null],
         ],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
