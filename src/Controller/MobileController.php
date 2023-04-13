@@ -17,14 +17,37 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MobileController extends AbstractController
 {
+
+    #[Route('/api/mobile-list', name: 'mobiles', methods: ['GET'])]
+    public function getAllMobiles(MobileRepository $mobileRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
+    {
+
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 3);
+
+        $idCache = "getAllMobiles-" . $page . "-" . $limit;
+
+        $jsonMobileList = $cache->get($idCache, function (ItemInterface $item) use ($mobileRepository, $page, $limit, $serializer) {
+            $item->tag("mobilesCache");
+            $item->expiresAfter(3600); //1 heure
+            $mobileList = $mobileRepository->findAllWithPagination($page, $limit);
+            return $serializer->serialize($mobileList, 'json', ['groups' => 'getMobiles']);
+        });
+
+        return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
+   }
+
     #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un livre')]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un mobile')]
     public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer): JsonResponse
     {
         $mobileList = $mobileRepository->findAll();
@@ -40,8 +63,10 @@ class MobileController extends AbstractController
    }
 
     #[Route('/api/mobiles/{id}', name: 'deleteMobile', methods: ['DELETE'])]
-    public function deleteMobile(Mobile $mobile, EntityManagerInterface $em): JsonResponse
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour supprimer un mobile')]
+    public function deleteMobile(Mobile $mobile, EntityManagerInterface $em, TagAwareCacheInterface $cachePool): JsonResponse 
     {
+        $cachePool->invalidateTags(["mobilesCache"]);
         $em->remove($mobile);
         $em->flush();
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
