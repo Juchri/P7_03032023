@@ -1,0 +1,3 @@
+<?php //Nelmio%255CApiDocBundle%255CController%255CSwaggerUiController
+
+return [PHP_INT_MAX, []];

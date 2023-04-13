@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="hateoas.configuration.provider" alias="hateoas.configuration.provider.chain" public="true"/>
+
+        <service id="hateoas.configuration.provider.chain" class="Hateoas\Configuration\Provider\ChainProvider" public="false">
+            <argument type="collection"/>
+        </service>
+
+        <service id="hateoas.configuration.provider.function" class="Hateoas\Configuration\Provider\FunctionProvider" public="false">
+            <tag name="hateoas.relation_provider" />
+        </service>
+
+        <service id="hateoas.configuration.provider.static_method" class="Hateoas\Configuration\Provider\StaticMethodProvider" public="false">
+            <tag name="hateoas.relation_provider" />
+        </service>
+
+        <service id="hateoas.configuration.provider.expression" class="Hateoas\Configuration\Provider\ExpressionEvaluatorProvider" public="false">
+            <argument type="service" id="jms_serializer.expression_evaluator" />
+            <tag name="hateoas.relation_provider" />
+        </service>
+
+        <service id="hateoas.configuration.metadata.yaml_driver" class="Hateoas\Configuration\Metadata\Driver\YamlDriver" public="false">
+            <argument type="service" id="jms_serializer.metadata.file_locator" />
+            <argument type="service" id="jms_serializer.expression_evaluator" />
+            <argument type="service" id="hateoas.configuration.provider" />
+            <argument type="service" id="jms_serializer.type_parser" on-invalid="null" />
+        </service>
+
+        <service id="hateoas.configuration.metadata.xml_driver" class="Hateoas\Configuration\Metadata\Driver\XmlDriver" public="false">
+            <argument type="service" id="jms_serializer.metadata.file_locator" />
+            <argument type="service" id="jms_serializer.expression_evaluator" />
+            <argument type="service" id="hateoas.configuration.provider" />
+            <argument type="service" id="jms_serializer.type_parser" on-invalid="null" />
+        </service>
+
+        <service id="hateoas.configuration.metadata.annotation_driver" class="Hateoas\Configuration\Metadata\Driver\AnnotationDriver" public="false">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="jms_serializer.expression_evaluator" />
+            <argument type="service" id="hateoas.configuration.provider" />
+            <argument type="service" id="jms_serializer.type_parser" on-invalid="null" />
+        </service>
+
+        <service id="hateoas.configuration.metadata.extension_driver" class="Hateoas\Configuration\Metadata\Driver\ExtensionDriver" public="false">
+            <argument type="service" id="hateoas.configuration.metadata.annotation_driver" />
+        </service>
+
+        <service id="hateoas.configuration.metadata.chain_driver" class="Metadata\Driver\DriverChain" public="false">
+            <argument type="collection">
+                <argument type="service" id="hateoas.configuration.metadata.yaml_driver" />
+                <argument type="service" id="hateoas.configuration.metadata.xml_driver" />
+                <argument type="service" id="hateoas.configuration.metadata.extension_driver" />
+            </argument>
+        </service>
+
+        <service id="hateoas.configuration.metadata_driver" alias="hateoas.configuration.metadata.chain_driver" public="true"/>
+
+        <service id="hateoas.configuration.metadata.lazy_loading_driver" class="Metadata\Driver\LazyLoadingDriver" public="false">
+            <argument type="service" id="service_container" />
+            <argument>hateoas.configuration.metadata_driver</argument>
+        </service>
+
+        <!-- Metadata Factory -->
+        <service id="hateoas.configuration.metadata.cache.file_cache" class="Metadata\Cache\FileCache" public="false">
+            <argument /><!-- Directory -->
+        </service>
+
+        <service id="hateoas.configuration.metadata.cache" alias="hateoas.configuration.metadata.cache.file_cache" public="false" />
+
+        <service id="hateoas.configuration.metadata_factory" class="Metadata\MetadataFactory" public="false">
+            <argument type="service" id="hateoas.configuration.metadata.lazy_loading_driver" />
+            <argument>Metadata\ClassHierarchyMetadata</argument>
+            <argument>%kernel.debug%</argument>
+            <call method="setCache">
+                <argument type="service" id="hateoas.configuration.metadata.cache" on-invalid="ignore" />
+            </call>
+        </service>
+    </services>
+</container>

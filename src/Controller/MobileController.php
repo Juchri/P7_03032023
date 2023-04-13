@@ -6,40 +6,109 @@ use App\Repository\MobileRepository;
 use App\Repository\BrandRepository;
 
 use App\Entity\Mobile;
-
+use App\Service\VersioningService;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerInterface;
+
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class MobileController extends AbstractController
 {
+    /**
+     * Cette méthode permet de récupérer l'ensemble des mobiles.
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Retourne la liste des mobiles",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Mobile::class, groups={"getMobiles"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="page",
+     *     in="query",
+     *     description="La page que l'on veut récupérer",
+     *     @OA\Schema(type="int")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     description="Le nombre d'éléments que l'on veut récupérer",
+     *     @OA\Schema(type="int")
+     * )
+     * @OA\Tag(name="Mobiles")
+     *
+     * @param BookRepository $bookRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route('/api/mobile-list', name: 'mobiles', methods: ['GET'])]
+    public function getAllMobiles(MobileRepository $mobileRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
+    {
+
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 3);
+
+        $idCache = "getAllMobiles-" . $page . "-" . $limit;
+
+        $jsonMobileList = $cache->get($idCache, function (ItemInterface $item) use ($mobileRepository, $page, $limit, $serializer) {
+            $item->tag("mobilesCache");
+            $item->expiresAfter(3600); //1 heure
+            $mobileList = $mobileRepository->findAllWithPagination($page, $limit);
+            $context = SerializationContext::create()->setGroups(['getMobiles']);
+            return $serializer->serialize($mobileList, 'json', $context);
+        });
+
+        return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
+   }
+
     #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
-    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer): JsonResponse
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un mobile')]
+    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
     {
         $mobileList = $mobileRepository->findAll();
-        $jsonMobileList = $serializer->serialize($mobileList, 'json', ['groups' => 'getMobiles']);
+        $version = $versioningService->getVersion();
+        $context = SerializationContext::create()->setGroups(['getMobiles']);
+        $context->setVersion($version);
+        $jsonMobileList = $serializer->serialize($mobileList, 'json', $context);
         return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
     }
 
-   #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
-   public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer): JsonResponse
-   {
-       $jsonMobile = $serializer->serialize($mobile, 'json', ['groups' => 'getMobiles']);
-       return new JsonResponse($jsonMobile, Response::HTTP_OK, ['accept' => 'json'], true);
-   }
+    #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
+    public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
+    {
+        $version = $versioningService->getVersion();
+        $context = SerializationContext::create()->setGroups(['getMobiles']);
+        $context->setVersion($version);
+        $jsonMobile = $serializer->serialize($mobile, 'json', $context);
+        return new JsonResponse($jsonMobile, Response::HTTP_OK, [], true);
+    }
 
     #[Route('/api/mobiles/{id}', name: 'deleteMobile', methods: ['DELETE'])]
-    public function deleteMobile(Mobile $mobile, EntityManagerInterface $em): JsonResponse
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour supprimer un mobile')]
+    public function deleteMobile(Mobile $mobile, EntityManagerInterface $em, TagAwareCacheInterface $cachePool): JsonResponse 
     {
+        $cachePool->invalidateTags(["mobilesCache"]);
         $em->remove($mobile);
         $em->flush();
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
@@ -66,29 +135,39 @@ class MobileController extends AbstractController
         $em->persist($mobile);
         $em->flush();
 
-        $jsonMobile = $serializer->serialize($mobile, 'json', ['groups' => 'getMobiles']);
+        $context = SerializationContext::create()->setGroups(['getMobiles']);
+        $jsonMobile = $serializer->serialize($mobile, 'json', $context);
 
         $location = $urlGenerator->generate('detailMobile', ['id' => $mobile->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return new JsonResponse($jsonMobile, Response::HTTP_CREATED, ["Location" => $location], true);
    }
 
-   #[Route('/api/mobiles/{id}', name:"updateMobile", methods:['PUT'])]
-
-    public function updateMobile(Request $request, SerializerInterface $serializer, Mobile $currentMobile, EntityManagerInterface $em, BrandRepository $brandRepository): JsonResponse 
+    #[Route('/api/mobiles/{id}', name:"updateMobile", methods:['PUT'])]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour éditer un livre')]
+    public function updateMobile(Request $request, SerializerInterface $serializer, Mobile $currentMobile, EntityManagerInterface $em, BrandRepository $brandRepository, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
     {
-        $updatedMobile = $serializer->deserialize($request->getContent(),
-                Mobile::class,
-                'json',
-                [AbstractNormalizer::OBJECT_TO_POPULATE => $currentMobile]);
+        $newMobile = $serializer->deserialize($request->getContent(), Mobile::class, 'json');
+        $currentMobile->setModel($newMobile->getModel());
+
+        // On vérifie les erreurs
+        $errors = $validator->validate($currentMobile);
+        if ($errors->count() > 0) {
+            return new JsonResponse($serializer->serialize($errors, 'json'), JsonResponse::HTTP_BAD_REQUEST, [], true);
+        }
+
         $content = $request->toArray();
         $idBrand = $content['idBrand'] ?? -1;
-        $updatedMobile->setBrand($brandRepository->find($idBrand));
 
-        $em->persist($updatedMobile);
+        $currentMobile->setBrand($brandRepository->find($idBrand));
+
+        $em->persist($currentMobile);
         $em->flush();
 
+        // On vide le cache.
+        $cache->invalidateTags(["mobilesCache"]);
+
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
-   }
+    }
 }
 

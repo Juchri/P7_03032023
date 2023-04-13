@@ -5,10 +5,44 @@ namespace App\Entity;
 use App\Repository\MobileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use JMS\Serializer\Annotation\Groups;
+
+use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation\Since;
+
+/**
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "detailMobile",
+ *          parameters = { "id" = "expr(object.getId())" }
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups="getMobiles")
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "delete",
+ *      href = @Hateoas\Route(
+ *          "deleteMobile",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups="getMobiles", excludeIf = "expr(not is_granted('ROLE_ADMIN'))"),
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "update",
+ *      href = @Hateoas\Route(
+ *          "updateMobile",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups="getMobiles", excludeIf = "expr(not is_granted('ROLE_ADMIN'))"),
+ * )
+ *
+ */
 #[ORM\Entity(repositoryClass: MobileRepository::class)]
 class Mobile
 {
@@ -34,6 +68,11 @@ class Mobile
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'mobiles')]
     private ?Collection $users = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["getMobiles"])]
+    #[Since("2.0")]
+    private ?string $comment = null;
 
     public function __construct()
     {
@@ -102,6 +141,18 @@ class Mobile
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }

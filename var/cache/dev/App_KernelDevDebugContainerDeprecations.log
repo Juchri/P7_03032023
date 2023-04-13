@@ -1,1 +1,1 @@
-a:0:{}
+a:1:{i:0;a:6:{s:4:"type";i:16384;s:7:"message";s:105:"Since symfony/security-bundle 6.2: The "enable_authenticator_manager" option at "security" is deprecated.";s:4:"file";s:84:"/Applications/MAMP/htdocs/P7_03032023/vendor/symfony/config/Definition/ArrayNode.php";s:4:"line";i:228;s:5:"trace";a:1:{i:0;a:5:{s:4:"file";s:83:"/Applications/MAMP/htdocs/P7_03032023/vendor/symfony/config/Definition/BaseNode.php";s:4:"line";i:394;s:8:"function";s:13:"finalizeValue";s:5:"class";s:45:"Symfony\Component\Config\Definition\ArrayNode";s:4:"type";s:2:"->";}}s:5:"count";i:2;}}

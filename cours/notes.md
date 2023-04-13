@@ -111,8 +111,14 @@ http://127.0.0.1:8000/api/mobiles : POST
     "idBrand": "1"
 }
 
+Pagination : http://127.0.0.1:8000/api/mobile-list/?page=5&limit=3 (GET)
 
 Vendredi 24 mars :
 HASHER Le mot de passe et continuer le cours
 Récupérer le mot de passe, le hasher, puis utiliser une méthode pour comparer (pas de if, pas de ==, juste la méthode qui compare les mots de passe)
 Envoi mot de passe / Distribution de token (JWT) / Compare avec l'existent / Valide
+
+
+Jeudi 13 avril : 
+Petit problème => PUT mobile brand, si 1, ça ne le prend pas en compte 
+

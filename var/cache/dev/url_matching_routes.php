@@ -8,6 +8,8 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/api/doc.json' => [[['_route' => 'app.swagger', '_controller' => 'nelmio_api_doc.controller.swagger'], null, ['GET' => 0], null, false, false, null]],
+        '/api/doc' => [[['_route' => 'app.swagger_ui', '_controller' => 'nelmio_api_doc.controller.swagger_ui'], null, ['GET' => 0], null, false, false, null]],
         '/api/brands' => [
             [['_route' => 'brand', '_controller' => 'App\\Controller\\BrandController::getBrandList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createBrand', '_controller' => 'App\\Controller\\BrandController::createBrand'], null, ['POST' => 0], null, false, false, null],
@@ -16,10 +18,12 @@ return [
             [['_route' => 'client', '_controller' => 'App\\Controller\\ClientController::getClientList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createClient', '_controller' => 'App\\Controller\\ClientController::createClient'], null, ['POST' => 0], null, false, false, null],
         ],
+        '/api/mobile-list' => [[['_route' => 'mobiles', '_controller' => 'App\\Controller\\MobileController::getAllMobiles'], null, ['GET' => 0], null, false, false, null]],
         '/api/mobiles' => [
             [['_route' => 'mobile', '_controller' => 'App\\Controller\\MobileController::getMobileList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createMobile', '_controller' => 'App\\Controller\\MobileController::createMobile'], null, ['POST' => 0], null, false, false, null],
         ],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

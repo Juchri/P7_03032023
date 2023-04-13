@@ -24,6 +24,11 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'T' => 
+        array (
+            'Twig\\Extra\\TwigExtraBundle\\' => 27,
+            'Twig\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
@@ -50,10 +55,12 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'Symfony\\Component\\PropertyInfo\\' => 31,
             'Symfony\\Component\\PropertyAccess\\' => 33,
             'Symfony\\Component\\PasswordHasher\\' => 33,
+            'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\ExpressionLanguage\\' => 37,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\Dotenv\\' => 25,
@@ -61,9 +68,12 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
+            'Symfony\\Component\\Asset\\' => 24,
+            'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
+            'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\Doctrine\\' => 24,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
@@ -77,15 +87,33 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'PhpParser\\' => 10,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
+        'O' => 
+        array (
+            'OpenApi\\' => 8,
+        ),
         'N' => 
         array (
+            'Nelmio\\ApiDocBundle\\' => 20,
             'Namshi\\JOSE\\' => 12,
+        ),
+        'M' => 
+        array (
+            'Metadata\\' => 9,
         ),
         'L' => 
         array (
             'Lexik\\Bundle\\JWTAuthenticationBundle\\' => 37,
             'Lcobucci\\JWT\\' => 13,
             'Lcobucci\\Clock\\' => 15,
+        ),
+        'J' => 
+        array (
+            'JMS\\Serializer\\' => 15,
+            'JMS\\SerializerBundle\\' => 21,
+        ),
+        'H' => 
+        array (
+            'Hateoas\\' => 8,
         ),
         'D' => 
         array (
@@ -107,6 +135,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'Doctrine\\Bundle\\FixturesBundle\\' => 31,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
+        'B' => 
+        array (
+            'Bazinga\\Bundle\\HateoasBundle\\' => 29,
+        ),
         'A' => 
         array (
             'App\\Tests\\' => 10,
@@ -124,6 +156,14 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Twig\\Extra\\TwigExtraBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/extra-bundle',
+        ),
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
         'Symfony\\Runtime\\Symfony\\Component\\' => 
         array (
@@ -221,6 +261,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             0 => __DIR__ . '/..' . '/symfony/password-hasher',
         ),
+        'Symfony\\Component\\OptionsResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/options-resolver',
+        ),
         'Symfony\\Component\\HttpKernel\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/http-kernel',
@@ -236,6 +280,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\ExpressionLanguage\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/expression-language',
         ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -265,6 +313,14 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
         ),
+        'Symfony\\Component\\Asset\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/asset',
+        ),
+        'Symfony\\Bundle\\TwigBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/twig-bundle',
+        ),
         'Symfony\\Bundle\\SecurityBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/security-bundle',
@@ -276,6 +332,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Symfony\\Bundle\\FrameworkBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/framework-bundle',
+        ),
+        'Symfony\\Bridge\\Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/twig-bridge',
         ),
         'Symfony\\Bridge\\Doctrine\\' => 
         array (
@@ -313,9 +373,21 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
+        'OpenApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zircote/swagger-php/src',
+        ),
+        'Nelmio\\ApiDocBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/api-doc-bundle',
+        ),
         'Namshi\\JOSE\\' => 
         array (
             0 => __DIR__ . '/..' . '/namshi/jose/src/Namshi/JOSE',
+        ),
+        'Metadata\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/metadata/src',
         ),
         'Lexik\\Bundle\\JWTAuthenticationBundle\\' => 
         array (
@@ -328,6 +400,18 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Lcobucci\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/clock/src',
+        ),
+        'JMS\\Serializer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer/src',
+        ),
+        'JMS\\SerializerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer-bundle',
+        ),
+        'Hateoas\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/hateoas/src',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (
@@ -397,6 +481,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'Bazinga\\Bundle\\HateoasBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/hateoas-bundle',
         ),
         'App\\Tests\\' => 
         array (

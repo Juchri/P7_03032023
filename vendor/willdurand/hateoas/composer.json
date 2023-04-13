@@ -1,0 +1,60 @@
+{
+    "name": "willdurand/hateoas",
+    "description": "A PHP library to support implementing representations for HATEOAS REST web services",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Durand",
+            "email": "william.durand1@gmail.com"
+        },
+        {
+            "name": "Adrien Brault",
+            "email": "adrien.brault@gmail.com"
+        },
+        {
+            "name": "Asmir Mustafic",
+            "email": "goetas@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 | ^8.0",
+        "doctrine/annotations": "^1.13.2 || ^2.0",
+        "jms/metadata": "^2.0",
+        "jms/serializer": "^3.18.2",
+        "symfony/expression-language": "~3.0 || ~4.0 || ~5.0 || ~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7 | ^9.5.10",
+        "doctrine/coding-standard": "^5.0 | ^8.0",
+        "doctrine/persistence": "^1.3.4 | ^2.0 | ^3.0",
+        "pagerfanta/core": "^2.4 || ^3.0",
+        "phpdocumentor/type-resolver": "^1.5.1",
+        "phpspec/prophecy-phpunit": "^2.0.1",
+        "phpspec/prophecy": "^1.16",
+        "symfony/routing": "~3.0 || ~4.0 || ~5.0 || ~6.0",
+        "symfony/yaml": "~3.0 || ~4.0 || ~5.0 || ~6.0",
+        "twig/twig": "^1.43 || ^2.13 || ^3.0"
+    },
+    "suggest": {
+        "symfony/yaml": "To use yaml based configuration.",
+        "symfony/routing": "To use the SymfonyRouteFactory.",
+        "twig/twig": "To use the Twig extensions."
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": { "Hateoas\\": "src/" }
+    },
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
+}
