@@ -22,8 +22,6 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 class MobileController extends AbstractController
 {
 
