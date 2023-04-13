@@ -4,6 +4,8 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'app.swagger' => [[], ['_controller' => 'nelmio_api_doc.controller.swagger'], [], [['text', '/api/doc.json']], [], [], []],
+    'app.swagger_ui' => [[], ['_controller' => 'nelmio_api_doc.controller.swagger_ui'], [], [['text', '/api/doc']], [], [], []],
     'brand' => [[], ['_controller' => 'App\\Controller\\BrandController::getBrandList'], [], [['text', '/api/brands']], [], [], []],
     'detailBrand' => [['id'], ['_controller' => 'App\\Controller\\BrandController::getDetailBrand'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/brands']], [], [], []],
     'deleteBrand' => [['id'], ['_controller' => 'App\\Controller\\BrandController::deleteBrand'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/brands']], [], [], []],

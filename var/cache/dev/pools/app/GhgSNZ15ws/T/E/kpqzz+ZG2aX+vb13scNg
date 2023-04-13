@@ -1,0 +1,64 @@
+1681399579
+getAllMobiles-1-3
+O:1:"©":2:{s:6:"”{úà";s:1454:"[
+    {
+        "id": 25,
+        "model": "Mod\u00e8le 0",
+        "brand": {
+            "id": 19,
+            "name": "Marque 7"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele0",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/25"
+            },
+            "delete": {
+                "href": "/api/mobiles/25"
+            },
+            "update": {
+                "href": "/api/mobiles/25"
+            }
+        }
+    },
+    {
+        "id": 26,
+        "model": "Mod\u00e8le 1",
+        "brand": {
+            "id": 18,
+            "name": "Marque 6"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele1",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/26"
+            },
+            "delete": {
+                "href": "/api/mobiles/26"
+            },
+            "update": {
+                "href": "/api/mobiles/26"
+            }
+        }
+    },
+    {
+        "id": 27,
+        "model": "Mod\u00e8le 2",
+        "brand": {
+            "id": 15,
+            "name": "Marque 3"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele2",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/27"
+            },
+            "delete": {
+                "href": "/api/mobiles/27"
+            },
+            "update": {
+                "href": "/api/mobiles/27"
+            }
+        }
+    }
+]";s:12:"mobilesCache";s:6:";Íi_Å";}

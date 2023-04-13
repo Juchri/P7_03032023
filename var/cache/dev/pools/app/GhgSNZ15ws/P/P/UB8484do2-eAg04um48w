@@ -1,0 +1,84 @@
+1681399932
+getAllMobiles-2-4
+O:1:"©":2:{s:6:"õ|úÌ";s:1938:"[
+    {
+        "id": 29,
+        "model": "Mod\u00e8le 4",
+        "brand": {
+            "id": 21,
+            "name": "Marque 9"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele4",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/29"
+            },
+            "delete": {
+                "href": "/api/mobiles/29"
+            },
+            "update": {
+                "href": "/api/mobiles/29"
+            }
+        }
+    },
+    {
+        "id": 30,
+        "model": "Mod\u00e8le 5",
+        "brand": {
+            "id": 15,
+            "name": "Marque 3"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele5",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/30"
+            },
+            "delete": {
+                "href": "/api/mobiles/30"
+            },
+            "update": {
+                "href": "/api/mobiles/30"
+            }
+        }
+    },
+    {
+        "id": 31,
+        "model": "Mod\u00e8le 6",
+        "brand": {
+            "id": 13,
+            "name": "Marque 1"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele6",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/31"
+            },
+            "delete": {
+                "href": "/api/mobiles/31"
+            },
+            "update": {
+                "href": "/api/mobiles/31"
+            }
+        }
+    },
+    {
+        "id": 32,
+        "model": "Mod\u00e8le 7",
+        "brand": {
+            "id": 13,
+            "name": "Marque 1"
+        },
+        "comment": "J'ai ador\u00e9 l'utilisation de ce modele7",
+        "_links": {
+            "self": {
+                "href": "/api/mobiles/32"
+            },
+            "delete": {
+                "href": "/api/mobiles/32"
+            },
+            "update": {
+                "href": "/api/mobiles/32"
+            }
+        }
+    }
+]";s:12:"mobilesCache";s:6:";Íi_Å";}
