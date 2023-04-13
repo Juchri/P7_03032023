@@ -6,7 +6,7 @@ use App\Repository\MobileRepository;
 use App\Repository\BrandRepository;
 
 use App\Entity\Mobile;
-use ContainerX5T2ebW\getJmsSerializer_SerializationContextFactoryService;
+use App\Service\VersioningService;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -51,18 +50,22 @@ class MobileController extends AbstractController
 
     #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un mobile')]
-    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer): JsonResponse
+    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
     {
         $mobileList = $mobileRepository->findAll();
+        $version = $versioningService->getVersion();
         $context = SerializationContext::create()->setGroups(['getMobiles']);
+        $context->setVersion($version);
         $jsonMobileList = $serializer->serialize($mobileList, 'json', $context);
         return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
     }
 
     #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
-    public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer): JsonResponse 
+    public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
     {
+        $version = $versioningService->getVersion();
         $context = SerializationContext::create()->setGroups(['getMobiles']);
+        $context->setVersion($version);
         $jsonMobile = $serializer->serialize($mobile, 'json', $context);
         return new JsonResponse($jsonMobile, Response::HTTP_OK, [], true);
     }

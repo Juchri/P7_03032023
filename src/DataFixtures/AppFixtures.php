@@ -52,6 +52,7 @@ class AppFixtures extends Fixture
             $mobile = new Mobile();
             $mobile->setModel("Modèle " . $i);
             $mobile->setBrand($listBrand[array_rand($listBrand)]);
+            $mobile->setComment("J'ai adoré l'utilisation de ce modele" .$i);
             $manager->persist($mobile);
         }
 
