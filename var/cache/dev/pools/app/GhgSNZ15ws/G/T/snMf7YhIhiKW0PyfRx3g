@@ -1,0 +1,28 @@
+1681394471
+getAllMobiles-5-3
+O:1:"©":2:{s:6:" gúð";s:441:"[
+    {
+        "id": 18,
+        "model": "Iphone XVIII",
+        "brand": {
+            "id": 2,
+            "name": "Marque 0"
+        }
+    },
+    {
+        "id": 19,
+        "model": "Mod\u00e8le 14",
+        "brand": {
+            "id": 4,
+            "name": "Marque 2"
+        }
+    },
+    {
+        "id": 20,
+        "model": "Mod\u00e8le 15",
+        "brand": {
+            "id": 9,
+            "name": "Marque 7"
+        }
+    }
+]";s:12:"mobilesCache";s:6:"†’ü÷Š";}

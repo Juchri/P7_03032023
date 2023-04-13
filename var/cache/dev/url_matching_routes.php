@@ -16,6 +16,7 @@ return [
             [['_route' => 'client', '_controller' => 'App\\Controller\\ClientController::getClientList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createClient', '_controller' => 'App\\Controller\\ClientController::createClient'], null, ['POST' => 0], null, false, false, null],
         ],
+        '/api/mobile-list' => [[['_route' => 'mobiles', '_controller' => 'App\\Controller\\MobileController::getAllMobiles'], null, ['GET' => 0], null, false, false, null]],
         '/api/mobiles' => [
             [['_route' => 'mobile', '_controller' => 'App\\Controller\\MobileController::getMobileList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createMobile', '_controller' => 'App\\Controller\\MobileController::createMobile'], null, ['POST' => 0], null, false, false, null],

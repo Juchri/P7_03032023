@@ -1,0 +1,28 @@
+1681393990
+getAllMobiles-3-3
+O:1:"©":2:{s:6:"¿eúÌ";s:441:"[
+    {
+        "id": 11,
+        "model": "Mod\u00e8le 6",
+        "brand": {
+            "id": 9,
+            "name": "Marque 7"
+        }
+    },
+    {
+        "id": 12,
+        "model": "Mod\u00e8le 7",
+        "brand": {
+            "id": 7,
+            "name": "Marque 5"
+        }
+    },
+    {
+        "id": 13,
+        "model": "Mod\u00e8le 8",
+        "brand": {
+            "id": 10,
+            "name": "Marque 8"
+        }
+    }
+]";s:12:"mobilesCache";s:6:"¤Â-O‹";}

@@ -54,6 +54,7 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\ExpressionLanguage\\' => 37,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\Dotenv\\' => 25,
@@ -81,11 +82,24 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             'Namshi\\JOSE\\' => 12,
         ),
+        'M' => 
+        array (
+            'Metadata\\' => 9,
+        ),
         'L' => 
         array (
             'Lexik\\Bundle\\JWTAuthenticationBundle\\' => 37,
             'Lcobucci\\JWT\\' => 13,
             'Lcobucci\\Clock\\' => 15,
+        ),
+        'J' => 
+        array (
+            'JMS\\Serializer\\' => 15,
+            'JMS\\SerializerBundle\\' => 21,
+        ),
+        'H' => 
+        array (
+            'Hateoas\\' => 8,
         ),
         'D' => 
         array (
@@ -106,6 +120,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
             'Doctrine\\Bundle\\MigrationsBundle\\' => 33,
             'Doctrine\\Bundle\\FixturesBundle\\' => 31,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
+        ),
+        'B' => 
+        array (
+            'Bazinga\\Bundle\\HateoasBundle\\' => 29,
         ),
         'A' => 
         array (
@@ -237,6 +255,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
+        'Symfony\\Component\\ExpressionLanguage\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/expression-language',
+        ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
@@ -317,6 +339,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         array (
             0 => __DIR__ . '/..' . '/namshi/jose/src/Namshi/JOSE',
         ),
+        'Metadata\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/metadata/src',
+        ),
         'Lexik\\Bundle\\JWTAuthenticationBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/lexik/jwt-authentication-bundle',
@@ -328,6 +354,18 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Lcobucci\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/clock/src',
+        ),
+        'JMS\\Serializer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer/src',
+        ),
+        'JMS\\SerializerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer-bundle',
+        ),
+        'Hateoas\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/hateoas/src',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (
@@ -397,6 +435,10 @@ class ComposerStaticInit34c4898d63706e346a2b9a24532abb35
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'Bazinga\\Bundle\\HateoasBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/hateoas-bundle',
         ),
         'App\\Tests\\' => 
         array (

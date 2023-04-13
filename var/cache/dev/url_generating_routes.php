@@ -14,9 +14,11 @@ return [
     'deleteClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::deleteClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
     'createClient' => [[], ['_controller' => 'App\\Controller\\ClientController::createClient'], [], [['text', '/api/clients']], [], [], []],
     'updateClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::updateClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
+    'mobiles' => [[], ['_controller' => 'App\\Controller\\MobileController::getAllMobiles'], [], [['text', '/api/mobile-list']], [], [], []],
     'mobile' => [[], ['_controller' => 'App\\Controller\\MobileController::getMobileList'], [], [['text', '/api/mobiles']], [], [], []],
     'detailMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::getDetailMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
     'deleteMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::deleteMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
     'createMobile' => [[], ['_controller' => 'App\\Controller\\MobileController::createMobile'], [], [['text', '/api/mobiles']], [], [], []],
     'updateMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::updateMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
+    'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], [], []],
 ];
