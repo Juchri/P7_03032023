@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -36,6 +38,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->mobiles = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
