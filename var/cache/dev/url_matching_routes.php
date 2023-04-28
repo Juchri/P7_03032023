@@ -18,10 +18,13 @@ return [
             [['_route' => 'client', '_controller' => 'App\\Controller\\ClientController::getClientList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createClient', '_controller' => 'App\\Controller\\ClientController::createClient'], null, ['POST' => 0], null, false, false, null],
         ],
-        '/api/mobile-list' => [[['_route' => 'mobiles', '_controller' => 'App\\Controller\\MobileController::getAllMobiles'], null, ['GET' => 0], null, false, false, null]],
         '/api/mobiles' => [
-            [['_route' => 'mobile', '_controller' => 'App\\Controller\\MobileController::getMobileList'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'mobiles', '_controller' => 'App\\Controller\\MobileController::getAllMobiles'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createMobile', '_controller' => 'App\\Controller\\MobileController::createMobile'], null, ['POST' => 0], null, false, false, null],
+        ],
+        '/api/users' => [
+            [['_route' => 'users', '_controller' => 'App\\Controller\\UserController::getUserList'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'createUser', '_controller' => 'App\\Controller\\UserController::createUser'], null, ['POST' => 0], null, false, false, null],
         ],
         '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
@@ -37,6 +40,9 @@ return [
                     .')'
                     .'|mobiles/([^/]++)(?'
                         .'|(*:122)'
+                    .')'
+                    .'|users/([^/]++)(?'
+                        .'|(*:148)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -57,6 +63,11 @@ return [
             [['_route' => 'detailMobile', '_controller' => 'App\\Controller\\MobileController::getDetailMobile'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'deleteMobile', '_controller' => 'App\\Controller\\MobileController::deleteMobile'], ['id'], ['DELETE' => 0], null, false, true, null],
             [['_route' => 'updateMobile', '_controller' => 'App\\Controller\\MobileController::updateMobile'], ['id'], ['PUT' => 0], null, false, true, null],
+        ],
+        148 => [
+            [['_route' => 'detailUser', '_controller' => 'App\\Controller\\UserController::getDetailUser'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'deleteUser', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, true, null],
+            [['_route' => 'updateUser', '_controller' => 'App\\Controller\\UserController::updateUser'], ['id'], ['PUT' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

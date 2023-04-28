@@ -129,7 +129,8 @@ Jeudi 13 avril :
 Petit problème => PUT mobile brand, si 1, ça ne le prend pas en compte
 
 Vendredi 21 avril :post
-- Résoudre les prroblèmes
+- Résoudre les prroblèmes ✅
+- Bien classer Nelmio ✅
 - Créer une authentification pour les clients, qui peuvent supprimer des "users"
 - Vérifier le 3e niveau de Richardson avec tout ce que j'ai fait
 - Hasher le mot de passe des clients

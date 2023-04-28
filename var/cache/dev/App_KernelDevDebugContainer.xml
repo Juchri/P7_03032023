@@ -261,6 +261,13 @@
         <argument type="service" id=".service_locator.CshazM0.App\Controller\MobileController"/>
       </call>
     </service>
+    <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.CshazM0.App\Controller\UserController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
@@ -3175,6 +3182,7 @@
         <argument type="service" id=".security.request_matcher.dtwonV5"/>
         <argument type="collection">
           <argument>ROLE_CLIENT</argument>
+          <argument>IS_AUTHENTICATED_FULLY</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -5726,6 +5734,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\MobileController" class="App\Controller\MobileController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\MobileController" class="App\Controller\MobileController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\MobileController" class="App\Controller\MobileController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\ExceptionSubscriber" class="App\EventSubscriber\ExceptionSubscriber" autowire="true" abstract="true"/>
@@ -6162,14 +6173,6 @@
         <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.7_wzCWl" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="mobileRepository" type="service_closure" id="App\Repository\MobileRepository"/>
-        <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
-        <argument key="versioningService" type="service_closure" id="App\Service\VersioningService"/>
-      </argument>
-    </service>
     <service id=".service_locator.q.Wxh1." class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6207,7 +6210,48 @@
         <argument key="validator" type="service_closure" id="validator"/>
       </argument>
     </service>
-    <service id=".service_locator.4s2k69f" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.oGNHoCO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="cache" type="service_closure" id="cache.app.taggable"/>
+        <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.ErOnR4h" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.ErOnR4h.App\Entity\User"/>
+      </argument>
+    </service>
+    <service id=".service_locator.GkGK2OS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.GkGK2OS.App\Entity\User"/>
+      </argument>
+    </service>
+    <service id=".service_locator.BxJ7Dmm" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="hash" type="service_closure" id="security.user_password_hasher"/>
+        <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
+        <argument key="urlGenerator" type="service_closure" id="router.default"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.jhoR5yO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="currentUser" type="service_closure" id=".errored..service_locator.jhoR5yO.App\Entity\User"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="serializer" type="service_closure" id="jms_serializer.serializer"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.omc19qA" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\BrandController::createBrand" type="service_closure" id=".service_locator.U1eLwaY"/>
@@ -6224,8 +6268,12 @@
         <argument key="App\Controller\MobileController::deleteMobile" type="service_closure" id=".service_locator.SZvQUVg"/>
         <argument key="App\Controller\MobileController::getAllMobiles" type="service_closure" id=".service_locator.Ekshx4r"/>
         <argument key="App\Controller\MobileController::getDetailMobile" type="service_closure" id=".service_locator.q.Wxh1."/>
-        <argument key="App\Controller\MobileController::getMobileList" type="service_closure" id=".service_locator.7_wzCWl"/>
         <argument key="App\Controller\MobileController::updateMobile" type="service_closure" id=".service_locator.l_CQc.y"/>
+        <argument key="App\Controller\UserController::createUser" type="service_closure" id=".service_locator.BxJ7Dmm"/>
+        <argument key="App\Controller\UserController::deleteUser" type="service_closure" id=".service_locator.GkGK2OS"/>
+        <argument key="App\Controller\UserController::getDetailUser" type="service_closure" id=".service_locator.ErOnR4h"/>
+        <argument key="App\Controller\UserController::getUserList" type="service_closure" id=".service_locator.oGNHoCO"/>
+        <argument key="App\Controller\UserController::updateUser" type="service_closure" id=".service_locator.jhoR5yO"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -6244,8 +6292,12 @@
         <argument key="App\Controller\MobileController:deleteMobile" type="service_closure" id=".service_locator.SZvQUVg"/>
         <argument key="App\Controller\MobileController:getAllMobiles" type="service_closure" id=".service_locator.Ekshx4r"/>
         <argument key="App\Controller\MobileController:getDetailMobile" type="service_closure" id=".service_locator.q.Wxh1."/>
-        <argument key="App\Controller\MobileController:getMobileList" type="service_closure" id=".service_locator.7_wzCWl"/>
         <argument key="App\Controller\MobileController:updateMobile" type="service_closure" id=".service_locator.l_CQc.y"/>
+        <argument key="App\Controller\UserController:createUser" type="service_closure" id=".service_locator.BxJ7Dmm"/>
+        <argument key="App\Controller\UserController:deleteUser" type="service_closure" id=".service_locator.GkGK2OS"/>
+        <argument key="App\Controller\UserController:getDetailUser" type="service_closure" id=".service_locator.ErOnR4h"/>
+        <argument key="App\Controller\UserController:getUserList" type="service_closure" id=".service_locator.oGNHoCO"/>
+        <argument key="App\Controller\UserController:updateUser" type="service_closure" id=".service_locator.jhoR5yO"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
       </argument>
@@ -6418,6 +6470,12 @@
     <service id=".service_locator.CshazM0.App\Controller\MobileController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\MobileController"/>
       <argument>App\Controller\MobileController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CshazM0" method="withContext"/>
+    </service>
+    <service id=".service_locator.CshazM0.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\UserController"/>
+      <argument>App\Controller\UserController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CshazM0" method="withContext"/>
     </service>
@@ -6605,12 +6663,12 @@
     <service id="debug.argument_resolver.request.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver"/>
     <service id="debug.argument_resolver.session.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver"/>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.4s2k69f"/>
+      <argument type="service" id=".service_locator.omc19qA"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.4s2k69f"/>
+      <argument type="service" id=".service_locator.omc19qA"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -6645,6 +6703,9 @@
     <service id=".errored..service_locator.q.Wxh1..App\Entity\Mobile" class="App\Entity\Mobile"/>
     <service id=".errored..service_locator.SZvQUVg.App\Entity\Mobile" class="App\Entity\Mobile"/>
     <service id=".errored..service_locator.l_CQc.y.App\Entity\Mobile" class="App\Entity\Mobile"/>
+    <service id=".errored..service_locator.ErOnR4h.App\Entity\User" class="App\Entity\User"/>
+    <service id=".errored..service_locator.GkGK2OS.App\Entity\User" class="App\Entity\User"/>
+    <service id=".errored..service_locator.jhoR5yO.App\Entity\User" class="App\Entity\User"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -7446,7 +7507,7 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.7nzbL4K" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.4s2k69f"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.omc19qA"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="jms_serializer.authorization_checker" alias="security.authorization_checker" public="true"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
@@ -7466,7 +7527,12 @@
     <service id=".service_locator.9DiCoaI" alias=".service_locator.SZvQUVg"/>
     <service id=".service_locator.2uakj6o" alias=".service_locator.K3s_sj8"/>
     <service id=".service_locator.Exf0xif" alias=".service_locator.l_CQc.y"/>
-    <service id=".service_locator.qiGN1Ak" alias=".service_locator.4s2k69f"/>
+    <service id=".service_locator.eWlMeLT" alias=".service_locator.oGNHoCO"/>
+    <service id=".service_locator.q8gFyes" alias=".service_locator.ErOnR4h"/>
+    <service id=".service_locator.LLEuAX_" alias=".service_locator.GkGK2OS"/>
+    <service id=".service_locator.CnduEDu" alias=".service_locator.BxJ7Dmm"/>
+    <service id=".service_locator.WhbT0ky" alias=".service_locator.jhoR5yO"/>
+    <service id=".service_locator.d400.rM" alias=".service_locator.omc19qA"/>
     <service id=".service_locator.9XMoc9I" alias=".service_locator.kzegaci"/>
     <service id=".service_locator.qBCHs1a" alias=".service_locator.QXcJQkF"/>
     <service id=".service_locator.VZoQk0z" alias=".service_locator.CshazM0"/>
@@ -7509,11 +7575,15 @@
     <service id=".service_locator.ttB3Qzn" alias=".service_locator.tP9sdH3"/>
     <service id=".service_locator.8PY0A82" alias=".service_locator.4CfP.mS"/>
     <service id=".service_locator.RuhA4KS" alias=".service_locator.Ekshx4r"/>
-    <service id=".service_locator.cAnGhME" alias=".service_locator.7_wzCWl"/>
     <service id=".service_locator.7Bu.G.g" alias=".service_locator.q.Wxh1."/>
     <service id=".service_locator.5GcTkwP" alias=".service_locator.SZvQUVg"/>
     <service id=".service_locator.FZ7xk2G" alias=".service_locator.K3s_sj8"/>
     <service id=".service_locator.U3HEYa." alias=".service_locator.l_CQc.y"/>
+    <service id=".service_locator.fGVMOO4" alias=".service_locator.oGNHoCO"/>
+    <service id=".service_locator..7IZo9_" alias=".service_locator.ErOnR4h"/>
+    <service id=".service_locator.xmcroQs" alias=".service_locator.GkGK2OS"/>
+    <service id=".service_locator.0jL1exX" alias=".service_locator.BxJ7Dmm"/>
+    <service id=".service_locator.DsfDz_S" alias=".service_locator.jhoR5yO"/>
     <service id=".service_locator.Kkgyw7." alias=".service_locator.CshazM0"/>
     <service id=".service_locator.Wt0f4Zb" alias=".service_locator.fLdGxkR"/>
     <service id=".service_locator.u6DWx23" alias=".service_locator.cXsfP3P"/>

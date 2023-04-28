@@ -62,7 +62,7 @@ class MobileController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route('/api/mobile-list', name: 'mobiles', methods: ['GET'])]
+    #[Route('/api/mobiles', name: 'mobiles', methods: ['GET'])]
     public function getAllMobiles(MobileRepository $mobileRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
     {
 
@@ -82,38 +82,8 @@ class MobileController extends AbstractController
         return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
    }
 
-    /**
-     * Cette méthode permet de récupérer la liste des mobiles.
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Récupère la liste des mobiles",
-     *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=Client::class))
-     *     )
-     * )
-     * @OA\Tag(name="Mobiles")
-     *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @return JsonResponse
-     * */
-    #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un mobile')]
-    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
-    {
-        $mobileList = $mobileRepository->findAll();
-        $version = $versioningService->getVersion();
-        $context = SerializationContext::create()->setGroups(['getMobiles']);
-        $context->setVersion($version);
-        $jsonMobileList = $serializer->serialize($mobileList, 'json', $context);
-        return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
-    }
 
-    
-    /**
+      /**
      * Cette méthode permet de récupérer un mobile en particulier.
      *
      * @OA\Response(
@@ -134,6 +104,7 @@ class MobileController extends AbstractController
     #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
     public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
     {
+        
         $version = $versioningService->getVersion();
         $context = SerializationContext::create()->setGroups(['getMobiles']);
         $context->setVersion($version);

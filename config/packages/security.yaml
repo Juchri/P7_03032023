@@ -41,7 +41,7 @@ security:
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: ROLE_CLIENT }
+        - { path: ^/api/users, roles: [ROLE_CLIENT, IS_AUTHENTICATED_FULLY] }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
@@ -52,7 +52,7 @@ when@test:
             # are not important, waste resources and increase test times. The following
             # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: auto
+                algorithm: bcrypt
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
