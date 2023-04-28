@@ -151,7 +151,7 @@ class UserController extends AbstractController
         $password = $content['password'];
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
 
-        $user->setRoles(["ROLE_CLIENT"]);
+        $user->setRoles(["ROLE_USER"]);
         $user->setPassword($hash->hashPassword($user, $password));
 
         $em->persist($user);
@@ -200,5 +200,50 @@ class UserController extends AbstractController
         $em->flush();
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+   }
+
+
+
+
+    /**
+     * Cette méthode permet de créer un compte user
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Crée un compte user",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * @OA\Tag(name="Users")
+     *
+     * @param UserRepository $userRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     * */
+    #[Route('/api/users/clients', name:"createClient", methods: ['POST'])]
+    public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
+    UrlGeneratorInterface $urlGenerator, UserRepository $userRepository, UserPasswordHasherInterface $hash): JsonResponse
+    {
+
+        $content = $request->toArray();
+        $password = $content['password'];
+        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+
+        $user->setRoles(["ROLE_CLIENT"]);
+        $user->setPassword($hash->hashPassword($user, $password));
+
+        $em->persist($user);
+        $em->flush();
+
+        $jsonUser = $serializer->serialize($user, 'json');
+
+        $location = $urlGenerator->generate('detailUser', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
+
+
    }
 }
