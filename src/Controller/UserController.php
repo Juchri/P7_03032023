@@ -135,7 +135,7 @@ class UserController extends AbstractController
      *        @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * @OA\Tag(name="Users")
+     * @OA\Tag(name="Clients")
      *
      * @param UserRepository $userRepository
      * @param SerializerInterface $serializer
@@ -203,10 +203,8 @@ class UserController extends AbstractController
    }
 
 
-
-
     /**
-     * Cette méthode permet de créer un compte user
+     * Cette méthode permet de créer un compte client
      *
      * @OA\Response(
      *     response=200,
@@ -224,6 +222,7 @@ class UserController extends AbstractController
      * @return JsonResponse
      * */
     #[Route('/api/users/clients', name:"createClient", methods: ['POST'])]
+    #[IsGranted('[ROLE_USER, ROLE_ADMIN]', message: 'Vous n\'avez pas les droits suffisants pour créer un client')]
     public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
     UrlGeneratorInterface $urlGenerator, UserRepository $userRepository, UserPasswordHasherInterface $hash): JsonResponse
     {

@@ -14,10 +14,7 @@ return [
             [['_route' => 'brand', '_controller' => 'App\\Controller\\BrandController::getBrandList'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createBrand', '_controller' => 'App\\Controller\\BrandController::createBrand'], null, ['POST' => 0], null, false, false, null],
         ],
-        '/api/clients' => [
-            [['_route' => 'client', '_controller' => 'App\\Controller\\ClientController::getClientList'], null, ['GET' => 0], null, false, false, null],
-            [['_route' => 'createClient', '_controller' => 'App\\Controller\\ClientController::createClient'], null, ['POST' => 0], null, false, false, null],
-        ],
+        '/api/clients' => [[['_route' => 'client', '_controller' => 'App\\Controller\\ClientController::getClientList'], null, ['GET' => 0], null, false, false, null]],
         '/api/mobiles' => [
             [['_route' => 'mobiles', '_controller' => 'App\\Controller\\MobileController::getAllMobiles'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'createMobile', '_controller' => 'App\\Controller\\MobileController::createMobile'], null, ['POST' => 0], null, false, false, null],
@@ -41,8 +38,11 @@ return [
                     .'|mobiles/([^/]++)(?'
                         .'|(*:122)'
                     .')'
-                    .'|users/([^/]++)(?'
-                        .'|(*:148)'
+                    .'|users/(?'
+                        .'|([^/]++)(?'
+                            .'|(*:151)'
+                        .')'
+                        .'|clients(*:167)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -64,10 +64,13 @@ return [
             [['_route' => 'deleteMobile', '_controller' => 'App\\Controller\\MobileController::deleteMobile'], ['id'], ['DELETE' => 0], null, false, true, null],
             [['_route' => 'updateMobile', '_controller' => 'App\\Controller\\MobileController::updateMobile'], ['id'], ['PUT' => 0], null, false, true, null],
         ],
-        148 => [
+        151 => [
             [['_route' => 'detailUser', '_controller' => 'App\\Controller\\UserController::getDetailUser'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'deleteUser', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, true, null],
             [['_route' => 'updateUser', '_controller' => 'App\\Controller\\UserController::updateUser'], ['id'], ['PUT' => 0], null, false, true, null],
+        ],
+        167 => [
+            [['_route' => 'createClient', '_controller' => 'App\\Controller\\UserController::createClient'], [], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

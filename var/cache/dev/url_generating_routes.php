@@ -14,7 +14,6 @@ return [
     'client' => [[], ['_controller' => 'App\\Controller\\ClientController::getClientList'], [], [['text', '/api/clients']], [], [], []],
     'detailClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::getDetailClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
     'deleteClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::deleteClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
-    'createClient' => [[], ['_controller' => 'App\\Controller\\ClientController::createClient'], [], [['text', '/api/clients']], [], [], []],
     'updateClient' => [['id'], ['_controller' => 'App\\Controller\\ClientController::updateClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/clients']], [], [], []],
     'mobiles' => [[], ['_controller' => 'App\\Controller\\MobileController::getAllMobiles'], [], [['text', '/api/mobiles']], [], [], []],
     'detailMobile' => [['id'], ['_controller' => 'App\\Controller\\MobileController::getDetailMobile'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/mobiles']], [], [], []],
@@ -26,5 +25,6 @@ return [
     'deleteUser' => [['id'], ['_controller' => 'App\\Controller\\UserController::deleteUser'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/users']], [], [], []],
     'createUser' => [[], ['_controller' => 'App\\Controller\\UserController::createUser'], [], [['text', '/api/users']], [], [], []],
     'updateUser' => [['id'], ['_controller' => 'App\\Controller\\UserController::updateUser'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/users']], [], [], []],
+    'createClient' => [[], ['_controller' => 'App\\Controller\\UserController::createClient'], [], [['text', '/api/users/clients']], [], [], []],
     'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], [], []],
 ];

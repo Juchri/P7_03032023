@@ -31,7 +31,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Mobile::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mobile::class)]
     private Collection $mobiles;
 
     public function __construct()
@@ -122,7 +122,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->mobiles->contains($mobile)) {
             $this->mobiles->add($mobile);
-            $mobile->setClient($this);
+            $mobile->setUser($this);
         }
 
         return $this;
@@ -132,8 +132,8 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->mobiles->removeElement($mobile)) {
             // set the owning side to null (unless already changed)
-            if ($mobile->getClient() === $this) {
-                $mobile->setClient(null);
+            if ($mobile->getUser() === $this) {
+                $mobile->setUser(null);
             }
         }
 
