@@ -109,7 +109,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 6 => $o[9],
             ],
             'name' => [
-                12 => 'Clients',
+                12 => 'Users',
             ],
         ],
     ],

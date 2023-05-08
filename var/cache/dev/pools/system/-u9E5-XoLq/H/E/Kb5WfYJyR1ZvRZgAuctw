@@ -37,7 +37,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 200,
             ],
             'description' => [
-                'Supprime un compte user',
+                'Supprime un compte user uniquement',
             ],
             'logger' => [
                 1 => $o[2],

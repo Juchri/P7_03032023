@@ -41,8 +41,8 @@ security:
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: [ROLE_CLIENT, IS_AUTHENTICATED_FULLY] }
-        - { path: ^/api/users/clients, roles: [ROLE_USER, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/api/users, roles: [ROLE_USER, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/api/clients, roles: [ROLE_CLIENT, IS_AUTHENTICATED_FULLY] }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

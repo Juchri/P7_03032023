@@ -100,7 +100,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'type' => [
                 3 => 'array',
-                9 => 'CUser',
+                9 => 'App\\Entity\\User',
             ],
             'items' => [
                 3 => $o[6],

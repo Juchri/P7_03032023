@@ -131,6 +131,11 @@ Petit problème => PUT mobile brand, si 1, ça ne le prend pas en compte
 Vendredi 21 avril :post
 - Résoudre les prroblèmes ✅
 - Bien classer Nelmio ✅
-- Créer une authentification pour les clients, qui peuvent supprimer des "users"
+- Créer une authentification pour les clients, ✅
+- Users qui peuvent creéer ✅ supprimer des "clients", modifier
+
+
+Obj :
 - Vérifier le 3e niveau de Richardson avec tout ce que j'ai fait
-- Hasher le mot de passe des clients
+- créer une route pour lier un user avec plusieurs clients
+- vérifier tous les accès pour clients et pour utilisateurs

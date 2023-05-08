@@ -198,12 +198,12 @@ class MobileController extends AbstractController
      *     description="Modifie un mobile",
      *     @OA\JsonContent(
      *        type="array",
-     *        @OA\Items(ref=@Model(type=Client::class))
+     *        @OA\Items(ref=@Model(type=Mobile::class))
      *     )
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param ClientRepository $clientRepository
+     * @param MobileRepository $mobileRepository
      * @param SerializerInterface $serializer
      * @param Request $request
      * @return JsonResponse

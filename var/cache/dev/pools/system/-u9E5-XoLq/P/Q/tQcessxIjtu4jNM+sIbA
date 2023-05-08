@@ -1,0 +1,121 @@
+<?php //App%255CController%255CUserController%2523deleteClient
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['OpenApi\\Annotations\\Response'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Response')),
+        clone ($p['OpenApi\\Context'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Context')),
+        clone ($p['OpenApi\\Loggers\\DefaultLogger'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Loggers\\DefaultLogger')),
+        clone ($p['OpenApi\\Annotations\\JsonContent'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\JsonContent')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Loggers\\DefaultLogger'],
+        clone ($p['OpenApi\\Annotations\\Items'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Items')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Loggers\\DefaultLogger'],
+        clone ($p['Nelmio\\ApiDocBundle\\Annotation\\Model'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Nelmio\\ApiDocBundle\\Annotation\\Model')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Loggers\\DefaultLogger'],
+        clone ($p['OpenApi\\Annotations\\Tag'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Tag')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Loggers\\DefaultLogger'],
+    ],
+    null,
+    [
+        'stdClass' => [
+            '_context' => [
+                $o[1],
+                3 => $o[4],
+                6 => $o[7],
+                9 => $o[10],
+                12 => $o[13],
+            ],
+            '_unmerged' => [
+                [
+                    $o[3],
+                ],
+            ],
+            'response' => [
+                200,
+            ],
+            'description' => [
+                'Supprime n\'importe quel compte (dont compte client)',
+            ],
+            'logger' => [
+                1 => $o[2],
+                4 => $o[5],
+                7 => $o[8],
+                10 => $o[11],
+                13 => $o[14],
+            ],
+            'filename' => [
+                1 => '/Applications/MAMP/htdocs/P7_03032023/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                4 => '/Applications/MAMP/htdocs/P7_03032023/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                7 => '/Applications/MAMP/htdocs/P7_03032023/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                10 => '/Applications/MAMP/htdocs/P7_03032023/vendor/zircote/swagger-php/src/Attributes/Attachable.php',
+                13 => '/Applications/MAMP/htdocs/P7_03032023/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+            ],
+            'line' => [
+                1 => 1481,
+                4 => 1481,
+                7 => 1481,
+                10 => 14,
+                13 => 1481,
+            ],
+            'method' => [
+                1 => 'instantiateAnnotiation',
+                4 => 'instantiateAnnotiation',
+                7 => 'instantiateAnnotiation',
+                10 => '__construct',
+                13 => 'instantiateAnnotiation',
+            ],
+            'class' => [
+                1 => 'DocParser',
+                4 => 'DocParser',
+                7 => 'DocParser',
+                10 => 'Attachable',
+                13 => 'DocParser',
+            ],
+            'namespace' => [
+                1 => 'Doctrine\\Common\\Annotations',
+                4 => 'Doctrine\\Common\\Annotations',
+                7 => 'Doctrine\\Common\\Annotations',
+                10 => 'OpenApi\\Attributes',
+                13 => 'Doctrine\\Common\\Annotations',
+            ],
+            'annotations' => [
+                1 => [
+                    $o[0],
+                ],
+                4 => [
+                    $o[3],
+                ],
+                7 => [
+                    $o[6],
+                ],
+                10 => [
+                    $o[9],
+                ],
+                13 => [
+                    $o[12],
+                ],
+            ],
+            'type' => [
+                3 => 'array',
+                9 => 'App\\Entity\\User',
+            ],
+            'items' => [
+                3 => $o[6],
+            ],
+            'ref' => [
+                6 => $o[9],
+            ],
+            'name' => [
+                12 => 'Clients',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[12],
+    ],
+    []
+); }];
