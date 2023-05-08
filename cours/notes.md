@@ -111,6 +111,12 @@ http://127.0.0.1:8000/api/mobiles : POST
     "idBrand": "1"
 }
 
+http://127.0.0.1:8000/api/clients : POST => Créer un nouveau client
+{
+    "email": "loueur@bilemo.fr",
+    "password": "client"
+}
+
 Pagination : http://127.0.0.1:8000/api/mobile-list/?page=5&limit=3 (GET)
 
 Vendredi 24 mars :
@@ -119,6 +125,17 @@ Récupérer le mot de passe, le hasher, puis utiliser une méthode pour comparer
 Envoi mot de passe / Distribution de token (JWT) / Compare avec l'existent / Valide
 
 
-Jeudi 13 avril : 
-Petit problème => PUT mobile brand, si 1, ça ne le prend pas en compte 
+Jeudi 13 avril :
+Petit problème => PUT mobile brand, si 1, ça ne le prend pas en compte
 
+Vendredi 21 avril :post
+- Résoudre les prroblèmes ✅
+- Bien classer Nelmio ✅
+- Créer une authentification pour les clients, ✅
+- Users qui peuvent creéer ✅ supprimer des "clients", modifier
+
+
+Obj :
+- Vérifier le 3e niveau de Richardson avec tout ce que j'ai fait
+- créer une route pour lier un user avec plusieurs clients
+- vérifier tous les accès pour clients et pour utilisateurs

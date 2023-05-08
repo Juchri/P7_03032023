@@ -1,0 +1,47 @@
+<?php //App%255CEntity%255CUser
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Hateoas\\Configuration\\Annotation\\Relation'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Hateoas\\Configuration\\Annotation\\Relation')),
+        clone ($p['Hateoas\\Configuration\\Annotation\\Route'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Hateoas\\Configuration\\Annotation\\Route')),
+        clone $p['Hateoas\\Configuration\\Annotation\\Relation'],
+        clone $p['Hateoas\\Configuration\\Annotation\\Route'],
+        clone $p['Hateoas\\Configuration\\Annotation\\Relation'],
+        clone $p['Hateoas\\Configuration\\Annotation\\Route'],
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'self',
+                'detailUser',
+                'delete',
+                'deleteUser',
+                'update',
+                'updateUser',
+            ],
+            'href' => [
+                $o[1],
+                2 => $o[3],
+                4 => $o[5],
+            ],
+            'parameters' => [
+                1 => [
+                    'id' => 'expr(object.getId())',
+                ],
+                3 => [
+                    'id' => 'expr(object.getId())',
+                ],
+                5 => [
+                    'id' => 'expr(object.getId())',
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[2],
+        $o[4],
+    ],
+    []
+); }];

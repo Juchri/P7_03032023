@@ -57,12 +57,12 @@ class MobileController extends AbstractController
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param BookRepository $bookRepository
+     * @param MobileRepository $MobileRepository
      * @param SerializerInterface $serializer
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route('/api/mobile-list', name: 'mobiles', methods: ['GET'])]
+    #[Route('/api/mobiles', name: 'mobiles', methods: ['GET'])]
     public function getAllMobiles(MobileRepository $mobileRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
     {
 
@@ -82,21 +82,29 @@ class MobileController extends AbstractController
         return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
    }
 
-    #[Route('/api/mobiles', name: 'mobile', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un mobile')]
-    public function getMobileList(MobileRepository $mobileRepository, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
-    {
-        $mobileList = $mobileRepository->findAll();
-        $version = $versioningService->getVersion();
-        $context = SerializationContext::create()->setGroups(['getMobiles']);
-        $context->setVersion($version);
-        $jsonMobileList = $serializer->serialize($mobileList, 'json', $context);
-        return new JsonResponse($jsonMobileList, Response::HTTP_OK, [], true);
-    }
 
+      /**
+     * Cette méthode permet de récupérer un mobile en particulier.
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Récupère un mobile",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Client::class))
+     *     )
+     * )
+     * @OA\Tag(name="Mobiles")
+     *
+     * @param ClientRepository $clientRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     * */
     #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
     public function getDetailMobile(Mobile $mobile, SerializerInterface $serializer, VersioningService $versioningService): JsonResponse
     {
+        
         $version = $versioningService->getVersion();
         $context = SerializationContext::create()->setGroups(['getMobiles']);
         $context->setVersion($version);
@@ -104,6 +112,25 @@ class MobileController extends AbstractController
         return new JsonResponse($jsonMobile, Response::HTTP_OK, [], true);
     }
 
+
+    /**
+     * Cette méthode permet de supprimer un mobile.
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Supprime un mobile",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Client::class))
+     *     )
+     * )
+     * @OA\Tag(name="Mobiles")
+     *
+     * @param ClientRepository $clientRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     * */
     #[Route('/api/mobiles/{id}', name: 'deleteMobile', methods: ['DELETE'])]
     #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour supprimer un mobile')]
     public function deleteMobile(Mobile $mobile, EntityManagerInterface $em, TagAwareCacheInterface $cachePool): JsonResponse 
@@ -114,6 +141,25 @@ class MobileController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
+
+    /**
+     * Cette méthode permet de créer un mobile.
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Créée un mobile",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Client::class))
+     *     )
+     * )
+     * @OA\Tag(name="Mobiles")
+     *
+     * @param ClientRepository $clientRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     * */
     #[Route('/api/mobiles', name:"createMobile", methods: ['POST'])]
     public function createMobile(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
     UrlGeneratorInterface $urlGenerator, BrandRepository $brandRepository, ValidatorInterface $validator): JsonResponse
@@ -143,6 +189,25 @@ class MobileController extends AbstractController
         return new JsonResponse($jsonMobile, Response::HTTP_CREATED, ["Location" => $location], true);
    }
 
+
+    /**
+     * Cette méthode permet de modifier un mobile.
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Modifie un mobile",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Mobile::class))
+     *     )
+     * )
+     * @OA\Tag(name="Mobiles")
+     *
+     * @param MobileRepository $mobileRepository
+     * @param SerializerInterface $serializer
+     * @param Request $request
+     * @return JsonResponse
+     * */
     #[Route('/api/mobiles/{id}', name:"updateMobile", methods:['PUT'])]
     #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour éditer un livre')]
     public function updateMobile(Request $request, SerializerInterface $serializer, Mobile $currentMobile, EntityManagerInterface $em, BrandRepository $brandRepository, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
@@ -157,7 +222,7 @@ class MobileController extends AbstractController
         }
 
         $content = $request->toArray();
-        $idBrand = $content['idBrand'] ?? -1;
+        $idBrand = $content['idBrand'];
 
         $currentMobile->setBrand($brandRepository->find($idBrand));
 

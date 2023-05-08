@@ -9,6 +9,37 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
+use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation\Since;
+/**
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "detailUser",
+ *          parameters = { "id" = "expr(object.getId())" }
+ *      )
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "delete",
+ *      href = @Hateoas\Route(
+ *          "deleteUser",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *      )
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "update",
+ *      href = @Hateoas\Route(
+ *          "updateUser",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *      )
+ *  * )
+ *
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -32,9 +63,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Mobile::class, mappedBy: 'users')]
     private Collection $mobiles;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'clients')]
+    private ?self $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: self::class)]
+    private Collection $clients;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $first_name = null;
+
+
     public function __construct()
     {
         $this->mobiles = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,4 +178,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getUser(): ?self
+    {
+        return $this->user;
+    }
+
+    public function setUser(?self $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(self $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients->add($client);
+            $client->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(self $client): self
+    {
+        if ($this->clients->removeElement($client)) {
+            // set the owning side to null (unless already changed)
+            if ($client->getUser() === $this) {
+                $client->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(?string $first_name): self
+    {
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+
 }
