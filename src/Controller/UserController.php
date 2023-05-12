@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 
 use App\Entity\User;
 use App\Entity\Mobile;
-
+use App\Repository\MobileRepository;
 use Doctrine\Persistence\ObjectManager;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,7 +64,7 @@ class UserController extends AbstractController
         $jsonUserList = $cache->get($idCache, function (ItemInterface $item) use ($userRepository, $serializer) {
             $item->tag("mobilesCache");
             $item->expiresAfter(3600); //1 heure
-            $userList = $userRepository->findAll();
+            $userList = $userRepository->findUsersByRole('ROLE_USER');
             $context = SerializationContext::create();
             return $serializer->serialize($userList, 'json', $context);
         });
@@ -92,7 +92,7 @@ class UserController extends AbstractController
      * */
 
 
-   #[Route('/api/users/clients/{id}', name: 'detailUser', methods: ['GET'])]
+   #[Route('/api/clients/{id}', name: 'detailUser', methods: ['GET'])]
    public function getDetailClient(User $user, SerializerInterface $serializer): JsonResponse
    {
         $jsonUser = $serializer->serialize($user, 'json');
@@ -176,9 +176,8 @@ class UserController extends AbstractController
     }
 
 
-
     /**
-     * Cette méthode permet de mettre à jour un compte d'utilisateur
+     * Cette méthode permet de créer un compte client, en lien avec un utilisateur
      *
      * @OA\Response(
      *     response=200,
@@ -195,8 +194,8 @@ class UserController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      * */
-    #[Route('/api/add-client/{id}', name:"linkUser", methods:['POST'])]
-    public function linkUser(Request $request, UserPasswordHasherInterface $hash, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
+    #[Route('/api/users/add-client/{id}', name:"addClient", methods:['POST'])]
+    public function addClient(Request $request, UserPasswordHasherInterface $hash, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
     {
         $content = $request->toArray();
         $first_name = $content['first_name'];
@@ -226,15 +225,15 @@ class UserController extends AbstractController
      *
      * @OA\Response(
      *     response=200,
-     *     description="Crée un compte user",
+     *     description="Modifie un utilisateur",
      *     @OA\JsonContent(
      *        type="array",
      *        @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * @OA\Tag(name="Clients")
+     * @OA\Tag(name="Users")
      *
-     * @param UserRepository $userRepository
+     * @param UserRepository userRepository
      * @param SerializerInterface $serializer
      * @param Request $request
      * @return JsonResponse
@@ -272,7 +271,7 @@ class UserController extends AbstractController
      *        @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * @OA\Tag(name="Users")
+     * @OA\Tag(name="Clients")
      *
      * @param UserRepository $userRepository
      * @param SerializerInterface $serializer
@@ -287,9 +286,9 @@ class UserController extends AbstractController
         $jsonUserList = $cache->get($idCache, function (ItemInterface $item) use ($userRepository, $serializer) {
             $item->tag("mobilesCache");
             $item->expiresAfter(3600); //1 heure
-            $userList = $userRepository->findBy(['roles' => 'ROLE_CLIENT']);
-       //    $userList = $userRepository->findAll();
+            $userList = $userRepository->findUsersByRole('ROLE_CLIENT');
             $context = SerializationContext::create();
+
             return $serializer->serialize($userList, 'json', $context);
         });
 
@@ -340,7 +339,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      * */
-    #[Route('/api/users/clients/{id}', name: 'deleteClient', methods: ['DELETE'])]
+    #[Route('/api/clients/{id}', name: 'deleteClient', methods: ['DELETE'])]
     public function deleteClient (User $user, EntityManagerInterface $em): JsonResponse
     {
             $em->remove($user);
