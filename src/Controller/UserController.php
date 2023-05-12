@@ -199,7 +199,7 @@ class UserController extends AbstractController
     {
         $content = $request->toArray();
 
-        if (isset($_POST['email'])) {
+        if (isset($content['email'])) {
             $first_name = $content['first_name'];
             $name = $content['name'];
             $email = $content['email'];
@@ -211,7 +211,7 @@ class UserController extends AbstractController
             $client->setName($name);
             $client->setRoles(["ROLE_CLIENT"]);
             $client->setPassword($hash->hashPassword($client, $password));
-        } elseif (isset($_POST['client_id'])) {
+        } elseif (isset($content['client_id'])) {
             $client_id = $content['client_id'];
             $userRepository = $em->getRepository(User::class);
             $client = $userRepository->find($client_id);
