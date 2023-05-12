@@ -43,6 +43,8 @@ security:
         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: [ROLE_USER, IS_AUTHENTICATED_FULLY] }
         - { path: ^/api/clients, roles: [ROLE_CLIENT, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/api/mobiles, roles: [ROLE_CLIENT, ROLE_USER, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/api/brands, roles: [ROLE_CLIENT, ROLE_USER, IS_AUTHENTICATED_FULLY] }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
