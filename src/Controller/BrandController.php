@@ -34,6 +34,9 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Brand controller
+ */
 class BrandController extends AbstractController
 {
      /**
@@ -49,13 +52,13 @@ class BrandController extends AbstractController
      * )
      * @OA\Tag(name="Brands")
      *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @return JsonResponse
+     *  @param BrandRepository $brandRepository
+     *  @param SerializerInterface $serializer
+     *  @return JsonResponse
      * */
     #[Route('/api/brands', name: 'brand', methods: ['GET'])]
-    public function getBrandList(BrandRepository $brandRepository, SerializerInterface $serializer): JsonResponse
+    public function getBrandList(BrandRepository $brandRepository, 
+    SerializerInterface $serializer): JsonResponse
     {
         $brandList = $brandRepository->findAll();
         $jsonBrandList = $serializer->serialize($brandList, 'json', ['groups' => 'getMobiles']);
@@ -75,10 +78,9 @@ class BrandController extends AbstractController
      * )
      * @OA\Tag(name="Brands")
      *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @return JsonResponse
+     *  @param BrandRepository $brandRepository
+     *  @param SerializerInterface $serializer
+     *  @return JsonResponse
      * */
    #[Route('/api/brands/{id}', name: 'detailBrand', methods: ['GET'])]
    public function getDetailBrand(Brand $brand, SerializerInterface $serializer): JsonResponse
@@ -100,10 +102,8 @@ class BrandController extends AbstractController
      * )
      * @OA\Tag(name="Brands")
      *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @return JsonResponse
+     *  @param Brand $brand
+     *  @param EntityManagerInterface $em
      * */
     #[Route('/api/brands/{id}', name: 'deleteBrand', methods: ['DELETE'])]
     public function deleteBrand(Brand $brand, EntityManagerInterface $em): JsonResponse
@@ -126,19 +126,19 @@ class BrandController extends AbstractController
      * )
      * @OA\Tag(name="Brands")
      *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
-     * @return JsonResponse
+     *  @param ClientRepository $clientRepository
+     *  @param SerializerInterface $serializer
+     *  @param EntityManagerInterface $em
+     *  @param Request $request
+     *  @param UrlGeneratorInterface $urlGenerator
+     *  @return JsonResponse
      * */
     #[Route('/api/brands', name:"createBrand", methods: ['POST'])]
     public function createBrand(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
-    UrlGeneratorInterface $urlGenerator, BrandRepository $brandRepository): JsonResponse
+    UrlGeneratorInterface $urlGenerator): JsonResponse
     {
 
         $brand = $serializer->deserialize($request->getContent(), Brand::class, 'json');
-
-        $content = $request->toArray();
 
         $em->persist($brand);
         $em->flush();
@@ -163,7 +163,9 @@ class BrandController extends AbstractController
      * )
      * @OA\Tag(name="Brands")
      *
-     * @param ClientRepository $clientRepository
+     * @param BrandRepository $brandRepository
+     * @param EntityManagerInterface $em
+     * @param Brand $currentBrand
      * @param SerializerInterface $serializer
      * @param Request $request
      * @return JsonResponse
