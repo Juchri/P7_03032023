@@ -181,7 +181,7 @@ class UserController extends AbstractController
      *
      * @OA\Response(
      *     response=200,
-     *     description="Modifie un utilisateur",
+     *     description="Ajoute un client à un utilisateur. <br> <br> Si l'utilisateur existe déjà, ne renseigner que l'id du client :  'client_id': '{id}' dans le raw (JSON). <br><br> Sinon, crez l'utilisateur avec les données : <br> 'first_name', <br>'name', <br>'email', <br>'password'",
      *     @OA\JsonContent(
      *        type="array",
      *        @OA\Items(ref=@Model(type=User::class))
@@ -198,17 +198,24 @@ class UserController extends AbstractController
     public function addClient(Request $request, UserPasswordHasherInterface $hash, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
     {
         $content = $request->toArray();
-        $first_name = $content['first_name'];
-        $name = $content['name'];
-        $email = $content['email'];
-        $password = $content['password'];
 
-        $client = new User();
-        $client->setEmail($email);
-        $client->setFirstName($first_name);
-        $client->setName($name);
-        $client->setRoles(["ROLE_CLIENT"]);
-        $client->setPassword($hash->hashPassword($client, $password));
+        if (isset($_POST['email'])) {
+            $first_name = $content['first_name'];
+            $name = $content['name'];
+            $email = $content['email'];
+            $password = $content['password'];
+
+            $client = new User();
+            $client->setEmail($email);
+            $client->setFirstName($first_name);
+            $client->setName($name);
+            $client->setRoles(["ROLE_CLIENT"]);
+            $client->setPassword($hash->hashPassword($client, $password));
+        } elseif (isset($_POST['client_id'])) {
+            $client_id = $content['client_id'];
+            $userRepository = $em->getRepository(User::class);
+            $client = $userRepository->find($client_id);
+        }
 
         $currentUser->addClient($client);
 
@@ -219,9 +226,8 @@ class UserController extends AbstractController
     }
 
 
-
     /**
-     * Cette méthode permet de créer un compte client
+     * Cette méthode permet d'ajouter un mobile à un client
      *
      * @OA\Response(
      *     response=200,
@@ -238,26 +244,19 @@ class UserController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      * */
-    #[Route('/api/users/clients', name:"createClient", methods: ['POST'])]
-    public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
-    UrlGeneratorInterface $urlGenerator, UserRepository $userRepository, UserPasswordHasherInterface $hash): JsonResponse
+    #[Route('/api/users/add-mobile/{id}', name:"linkUser", methods:['POST'])]
+    public function addMobile(Request $request, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse
     {
-
         $content = $request->toArray();
-        $password = $content['password'];
-        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $id_mobile = $content['mobile'];
+        $mobileRepository = $em->getRepository(Mobile::class);
+        $mobile = $mobileRepository->find($id_mobile);
 
-        $user->setRoles(["ROLE_CLIENT"]);
-        $user->setPassword($hash->hashPassword($user, $password));
-
-        $em->persist($user);
+        $currentUser->addMobile($mobile);
+        $em->persist($currentUser);
         $em->flush();
 
-        $jsonUser = $serializer->serialize($user, 'json');
-
-        $location = $urlGenerator->generate('detailUser', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**
