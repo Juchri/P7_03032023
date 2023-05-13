@@ -53,11 +53,11 @@ class UserController extends AbstractController
      *
      * @param UserRepository $userRepository
      * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param TagAwareCacheInterface $cache
      * @return JsonResponse
      * */
     #[Route('/api/users', name: 'usersList', methods: ['GET'])]
-    public function getUserList(UserRepository $userRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
+    public function getUserList(UserRepository $userRepository, SerializerInterface $serializer, TagAwareCacheInterface $cache): JsonResponse
     {
 
         $idCache = "getUsersList";
@@ -85,9 +85,8 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository $userRepository
+     * @param User $user
      * @param SerializerInterface $serializer
-     * @param Request $request
      * @return JsonResponse
      * */
 
@@ -113,12 +112,12 @@ class UserController extends AbstractController
      * @OA\Tag(name="Users")
      *
      * @param UserRepository $userRepository
-     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $em
      * @param Request $request
      * @return JsonResponse
      * */
     #[Route('/api/users/{id}', name: 'deleteUser', methods: ['DELETE'])]
-    public function deleteUser(User $user, EntityManagerInterface $em, UserRepository $userRepository): JsonResponse
+    public function deleteUser(User $user, EntityManagerInterface $em): JsonResponse
     {
         if($user->getRoles() == 'ROLE_USER') {
             $em->remove($user);
@@ -143,13 +142,14 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository userRepository
+     * @param User $currentUser
+     * @param UserPasswordHasherInterface $hash
      * @param SerializerInterface $serializer
      * @param Request $request
      * @return JsonResponse
      * */
     #[Route('/api/users/{id}', name:"updateUser", methods:['PUT'])]
-    public function updateUser(Request $request, UserPasswordHasherInterface $hash, UserRepository $userRepository, SerializerInterface $serializer, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
+    public function updateUser(Request $request, UserPasswordHasherInterface $hash, SerializerInterface $serializer, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
     {
         $newUser = $serializer->deserialize($request->getContent(), User::class, 'json');
         $currentUser->setEmail($newUser->getEmail());
@@ -189,17 +189,18 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository userRepository
-     * @param SerializerInterface $serializer
+     * @param User $user
      * @param Request $request
+     * @param UserPasswordHasherInterface $hash
+     * @param EntityManagerInterface $em
      * @return JsonResponse
      * */
     #[Route('/api/users/add-client/{id}', name:"addClient", methods:['POST'])]
-    public function addClient(Request $request, UserPasswordHasherInterface $hash, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
+    public function addClient(Request $request, UserPasswordHasherInterface $hash, User $currentUser, EntityManagerInterface $em): JsonResponse 
     {
         $content = $request->toArray();
 
-        if (isset($_POST['email'])) {
+        if (isset($content['email'])) {
             $first_name = $content['first_name'];
             $name = $content['name'];
             $email = $content['email'];
@@ -211,7 +212,7 @@ class UserController extends AbstractController
             $client->setName($name);
             $client->setRoles(["ROLE_CLIENT"]);
             $client->setPassword($hash->hashPassword($client, $password));
-        } elseif (isset($_POST['client_id'])) {
+        } elseif (isset($content['client_id'])) {
             $client_id = $content['client_id'];
             $userRepository = $em->getRepository(User::class);
             $client = $userRepository->find($client_id);
@@ -239,13 +240,13 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository userRepository
-     * @param SerializerInterface $serializer
+     * @param User $currentUser
+     * @param EntityManagerInterface $em
      * @param Request $request
      * @return JsonResponse
      * */
     #[Route('/api/users/add-mobile/{id}', name:"linkUser", methods:['POST'])]
-    public function addMobile(Request $request, User $currentUser, EntityManagerInterface $em, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse
+    public function addMobile(Request $request, User $currentUser, EntityManagerInterface $em): JsonResponse
     {
         $content = $request->toArray();
         $id_mobile = $content['mobile'];
@@ -260,11 +261,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * Cette méthode permet de récupérer l'ensemble des users.
+     * Cette méthode permet de récupérer l'ensemble des clients.
      *
      * @OA\Response(
      *     response=200,
-     *     description="Retourne la liste des users",
+     *     description="Retourne ",
      *     @OA\JsonContent(
      *        type="array",
      *        @OA\Items(ref=@Model(type=User::class))
@@ -274,11 +275,11 @@ class UserController extends AbstractController
      *
      * @param UserRepository $userRepository
      * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param TagAwareCacheInterface $cache
      * @return JsonResponse
      * */
     #[Route('/api/clients', name: 'users', methods: ['GET'])]
-    public function getClientList(UserRepository $userRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cache): JsonResponse
+    public function getClientList(UserRepository $userRepository, SerializerInterface $serializer, TagAwareCacheInterface $cache): JsonResponse
     {
         $idCache = "getUsersList";
 
@@ -307,9 +308,8 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository $userRepository
+     * @param User $user
      * @param SerializerInterface $serializer
-     * @param Request $request
      * @return JsonResponse
      * */
 
@@ -333,9 +333,8 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Clients")
      *
-     * @param UserRepository $userRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param User $user
+     * @param EntityManagerInterface $em
      * @return JsonResponse
      * */
     #[Route('/api/clients/{id}', name: 'deleteClient', methods: ['DELETE'])]
@@ -359,14 +358,16 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $em
      * @param SerializerInterface $serializer
      * @param Request $request
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param UserPasswordHasherInterface $hash
      * @return JsonResponse
      * */
     #[Route('/api/users', name:"createUser", methods: ['POST'])]
     public function createUser(Request $request, SerializerInterface $serializer, EntityManagerInterface $em,
-    UrlGeneratorInterface $urlGenerator, UserRepository $userRepository, UserPasswordHasherInterface $hash): JsonResponse
+    UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $hash): JsonResponse
     {
 
         $content = $request->toArray();

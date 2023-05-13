@@ -57,7 +57,7 @@ class BrandController extends AbstractController
      *  @return JsonResponse
      * */
     #[Route('/api/brands', name: 'brand', methods: ['GET'])]
-    public function getBrandList(BrandRepository $brandRepository, 
+    public function getBrandList(BrandRepository $brandRepository,
     SerializerInterface $serializer): JsonResponse
     {
         $brandList = $brandRepository->findAll();

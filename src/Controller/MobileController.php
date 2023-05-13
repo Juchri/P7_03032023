@@ -60,6 +60,7 @@ class MobileController extends AbstractController
      * @param MobileRepository $MobileRepository
      * @param SerializerInterface $serializer
      * @param Request $request
+     * @param TagAwareCacheInterface $cache
      * @return JsonResponse
      */
     #[Route('/api/mobiles', name: 'mobiles', methods: ['GET'])]
@@ -96,9 +97,9 @@ class MobileController extends AbstractController
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param ClientRepository $clientRepository
+     * @param Mobile $mobile
      * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param VersioningService $versioningService
      * @return JsonResponse
      * */
     #[Route('/api/mobiles/{id}', name: 'detailMobile', methods: ['GET'])]
@@ -126,9 +127,9 @@ class MobileController extends AbstractController
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param ClientRepository $clientRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param Mobile $mobile
+     * @param EntityManagerInterface $em
+     * @param TagAwareCacheInterface $cachePool
      * @return JsonResponse
      * */
     #[Route('/api/mobiles/{id}', name: 'deleteMobile', methods: ['DELETE'])]
@@ -155,9 +156,12 @@ class MobileController extends AbstractController
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param ClientRepository $clientRepository
+     * @param BrandRepository $brandRepository
      * @param SerializerInterface $serializer
      * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param ValidatorInterface $validator
      * @return JsonResponse
      * */
     #[Route('/api/mobiles', name:"createMobile", methods: ['POST'])]
@@ -203,14 +207,19 @@ class MobileController extends AbstractController
      * )
      * @OA\Tag(name="Mobiles")
      *
-     * @param MobileRepository $mobileRepository
+     * @param Mobile $currentMobile
+     * @param EntityManagerInterface $em
+     * @param BrandRepository $brandRepository
+     * @param ValidatorInterface $validator
      * @param SerializerInterface $serializer
      * @param Request $request
+     * @param TagAwareCacheInterface $cache
      * @return JsonResponse
      * */
     #[Route('/api/mobiles/{id}', name:"updateMobile", methods:['PUT'])]
     #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour éditer un livre')]
-    public function updateMobile(Request $request, SerializerInterface $serializer, Mobile $currentMobile, EntityManagerInterface $em, BrandRepository $brandRepository, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
+    public function updateMobile(Request $request, SerializerInterface $serializer, Mobile $currentMobile, EntityManagerInterface $em, 
+    BrandRepository $brandRepository, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse 
     {
         $newMobile = $serializer->deserialize($request->getContent(), Mobile::class, 'json');
         $currentMobile->setModel($newMobile->getModel());
