@@ -54,12 +54,24 @@ After Installing the project, start the server
 
 ## API Reference
 
+### Authentification
+
+#### Log-in
+
+```http
+POST /api/login_check
+```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `email`      | `string` | **Required**.  |
+| `password`      | `string` | **Required**. |
+
 ### Mobiles
 
 #### Get all phones
 
 ```http
-  GET /api/mobiles
+GET /api/mobiles
 ```
 
 #### Create a new phone
